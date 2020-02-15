@@ -27,8 +27,9 @@ class SecurityConfig(private val accountService: AccountService,
 
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-                .antMatchers("/resources/**").anonymous()
+                .antMatchers("/resources/**").permitAll()
                 .antMatchers("/test").hasRole("ADMIN")
+                .antMatchers("/").permitAll()
                 .and().formLogin().and().httpBasic().and().logout().and().csrf().disable()
     }
 
@@ -56,6 +57,7 @@ class BeanConfig {
                         mutableSetOf(AccountRole.ADMIN))
                 val user = Account(null, "user@test.com", "password", mutableSetOf(AccountRole.USER))
                 accountService.saveAccountAll(listOf(admin, user))
+
             }
         }
     }
