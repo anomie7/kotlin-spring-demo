@@ -2,7 +2,9 @@ package com.example.demo.config
 
 import com.example.demo.entity.Account
 import com.example.demo.entity.AccountRole
+import com.example.demo.entity.CustomUserDetails
 import com.example.demo.service.AccountService
+import com.example.demo.service.CustomUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
@@ -18,10 +20,11 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(private val accountService: AccountService,
+                     private val customUserDetailsService: CustomUserDetailsService,
                      private val passwordEncoder: PasswordEncoder) : WebSecurityConfigurerAdapter() {
 
     override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(accountService)
+        auth.userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder)
     }
 

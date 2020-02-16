@@ -1,6 +1,7 @@
 package com.example.demo.service
 
 import com.example.demo.entity.Account
+import com.example.demo.entity.CustomUserDetails
 import com.example.demo.repository.AccountRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -17,12 +18,21 @@ class AccountService(private val accountRepository: AccountRepository,
     }
 
     fun saveAccountAll(accounts: List<Account>): MutableList<Account> {
-        accounts.forEach{it.password = this.passwordEncoder.encode(it.password)}
+        accounts.forEach { it.password = this.passwordEncoder.encode(it.password) }
         return accountRepository.saveAll(accounts)
     }
 
     override fun loadUserByUsername(username: String): UserDetails {
         return accountRepository.findByEmail(username)?.getAuthorities()
+                ?: throw UsernameNotFoundException("$username Can Not Found")
+    }
+}
+
+@Service
+class CustomUserDetailsService(private val accountRepository: AccountRepository,
+                               private val passwordEncoder: PasswordEncoder) : UserDetailsService {
+    override fun loadUserByUsername(username: String): UserDetails {
+        return accountRepository.findByEmail(username)?.let { CustomUserDetails(it) }
                 ?: throw UsernameNotFoundException("$username Can Not Found")
     }
 }
