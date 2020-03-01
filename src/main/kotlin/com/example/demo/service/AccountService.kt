@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class AccountService(private val accountRepository: AccountRepository,
-                     private val passwordEncoder: PasswordEncoder) : UserDetailsService {
+                     private val passwordEncoder: PasswordEncoder){
     fun saveAccount(account: Account): Account {
         account.password = this.passwordEncoder.encode(account.password)
         return accountRepository.save(account)
@@ -20,11 +20,6 @@ class AccountService(private val accountRepository: AccountRepository,
     fun saveAccountAll(accounts: List<Account>): MutableList<Account> {
         accounts.forEach { it.password = this.passwordEncoder.encode(it.password) }
         return accountRepository.saveAll(accounts)
-    }
-
-    override fun loadUserByUsername(username: String): UserDetails {
-        return accountRepository.findByEmail(username)?.getAuthorities()
-                ?: throw UsernameNotFoundException("$username Can Not Found")
     }
 }
 

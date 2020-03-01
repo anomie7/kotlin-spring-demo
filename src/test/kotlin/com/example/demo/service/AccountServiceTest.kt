@@ -3,6 +3,8 @@ package com.example.demo.service
 import com.example.demo.entity.Account
 import com.example.demo.entity.AccountRole
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatIllegalStateException
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,9 +18,8 @@ internal class AccountServiceTest(val accountService: AccountService) {
     fun loadUserByUsername() {
         val email = "adsfasdf"
         val account = Account(0, email, "asfd", mutableSetOf(AccountRole.USER))
-        accountService.saveAccount(account)
+        val saveAccount = accountService.saveAccount(account)
 
-        val userDetails = accountService?.loadUserByUsername(email)
-        assertThat(userDetails.username).isEqualTo(email)
+        Assertions.assertEquals(email, saveAccount.email)
     }
 }

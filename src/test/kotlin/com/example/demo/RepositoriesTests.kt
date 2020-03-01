@@ -43,4 +43,19 @@ class RepositoriesTests @Autowired constructor(
         val also = accountRepository.findByEmail(email)?.also { it.email = "22" }
         Assertions.assertTrue(let is User)
     }
+
+    @Test
+    fun `account를 hashSet에 넣고 영속화하면 hashSet에서 조회 불가능`() {
+        val account = Account(email = "asdf@test.com",
+                password = "asdf",
+                roles = mutableSetOf(AccountRole.USER))
+        accountRepository.save(account)
+        val hashSet = hashSetOf(account)
+        Assertions.assertTrue(hashSet.contains(account))
+    }
+
+    @Test
+    fun name() {
+
+    }
 }
