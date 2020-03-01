@@ -6,20 +6,31 @@ import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDateTime
 import java.util.stream.Collectors
 
-class CustomUserDetails(private val account: Account) : UserDetails {
-    val visitCount: Int = 5
-    val createDt: LocalDateTime = account.createDt
+class CustomUserDetails private constructor(
+        private val userName: String,
+        private val password: String,
+        private val roles: MutableSet<AccountRole>,
+        val createDt: LocalDateTime,
+        val visitCount: Int = 5) : UserDetails {
+
+    companion object {
+        fun from(account: Account): CustomUserDetails {
+            return with(account) {
+                CustomUserDetails(userName = email, password = password, roles = roles, createDt = createDt)
+            }
+        }
+    }
 
     override fun getUsername(): String {
-        return account.email
+        return userName
     }
 
     override fun getPassword(): String {
-        return account.password
+        return password
     }
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return account.roles.stream().map { role -> SimpleGrantedAuthority("ROLE_$role") }.collect(Collectors.toSet())
+        return roles.stream().map { role -> SimpleGrantedAuthority("ROLE_$role") }.collect(Collectors.toSet())
     }
 
     override fun isEnabled(): Boolean {
