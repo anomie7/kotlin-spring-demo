@@ -29,7 +29,7 @@ internal class CustomUserDetailsServiceTest(val customUserDetailsService: Custom
     @Test
     @WithAnonymousUser
     fun loginanonymousUser() {
-        val customUserDetails = SecurityContextHolder().getCustomUserDetails()
+        val customUserDetails = getCustomUserDetails()
         val userName = customUserDetails?.username ?: "anonymous"
         Assertions.assertEquals("anonymous", userName)
     }
@@ -37,7 +37,7 @@ internal class CustomUserDetailsServiceTest(val customUserDetailsService: Custom
     @Test
     @WithUserDetails(value = "user@test.com", userDetailsServiceBeanName = "customUserDetailsService")
     fun name() {
-        val customUserDetails = SecurityContextHolder().getCustomUserDetails()
+        val customUserDetails = getCustomUserDetails()
         Assertions.assertTrue(customUserDetails?.username == "user@test.com")
     }
 }
