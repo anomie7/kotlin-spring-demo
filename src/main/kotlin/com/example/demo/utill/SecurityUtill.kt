@@ -1,3 +1,4 @@
+@file:JvmName("SecurityUtil")
 package com.example.demo.utill
 
 import com.example.demo.entity.CustomUserDetails

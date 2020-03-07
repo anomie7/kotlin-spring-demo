@@ -28,7 +28,7 @@ internal class CustomUserDetailsServiceTest(val customUserDetailsService: Custom
 
     @Test
     @WithAnonymousUser
-    fun loginanonymousUser() {
+    fun `로그인하지 않은 사용자의 정보를 조회`() {
         val customUserDetails = getCustomUserDetails()
         val userName = customUserDetails?.username ?: "anonymous"
         Assertions.assertEquals("anonymous", userName)
