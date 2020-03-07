@@ -24,10 +24,10 @@ public class SecurityUtilTestUsingJava {
     }
 
     @Test
-    @WithUserDetails(value = "user@SecurityUtilTestUsingJava.com", userDetailsServiceBeanName = "customUserDetailsService")
+    @WithUserDetails(value = "user@test.com", userDetailsServiceBeanName = "customUserDetailsService")
     void 로그인한_사용자의_정보를_조회() {
         CustomUserDetails customUserDetails = SecurityUtil.getCustomUserDetails();
 
-        Assertions.assertEquals("user@SecurityUtilTestUsingJava.com", customUserDetails.getUsername());
+        Assertions.assertEquals("user@test.com", customUserDetails.getUsername());
     }
 }

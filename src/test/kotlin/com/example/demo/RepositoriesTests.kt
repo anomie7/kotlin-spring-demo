@@ -47,8 +47,4 @@ class RepositoriesTests @Autowired constructor(
         Assertions.assertTrue(hashSet.contains(account))
     }
 
-    @Test
-    fun name() {
-
-    }
 }
