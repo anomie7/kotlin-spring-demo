@@ -5,10 +5,10 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-data class Account(
+class Account(
         @Id @GeneratedValue
         @Column(updatable = false, insertable = false)
-        var id: Long? = null,
+        val id: Long? = null,
         var email: String,
         var password: String,
 
@@ -18,7 +18,27 @@ data class Account(
 
         @CreationTimestamp
         var createDt: LocalDateTime = LocalDateTime.now()
-)
+) {
+    constructor() :
+            this(null, "", "", mutableSetOf(), LocalDateTime.now())
+
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Account
+
+        if (email != other.email) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return email.hashCode()
+    }
+}
+
 
 enum class AccountRole {
     ADMIN, USER

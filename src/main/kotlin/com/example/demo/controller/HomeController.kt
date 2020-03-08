@@ -6,9 +6,10 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
+import java.time.LocalDateTime
 
 @Controller
-class HtmlController{
+class HomeController{
 
     @GetMapping("/")
     fun greet(model: Model): String {
@@ -16,7 +17,7 @@ class HtmlController{
         if (principal is UserDetails) {
             val username = principal.username
         }
-        model["title"] = "Blog"
-        return "blog"
+        model["title"] = LocalDateTime.now()
+        return "home"
     }
 }

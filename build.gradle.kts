@@ -1,11 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
 	id("org.springframework.boot") version "2.2.4.RELEASE"
 	id("io.spring.dependency-management") version "1.0.9.RELEASE"
+	id("net.ltgt.apt-idea") version "0.15"
 	kotlin("jvm") version "1.3.61"
 	kotlin("plugin.spring") version "1.3.61"
 	kotlin("plugin.jpa") version "1.3.61"
+	kotlin("kapt") version "1.3.61"
 }
 
 group = "com.example"
@@ -34,6 +37,10 @@ dependencies {
 	implementation("org.springframework.security:spring-security-test")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
+
+	implementation("org.mapstruct:mapstruct:1.3.1.Final")
+	kapt("org.mapstruct:mapstruct-processor:1.3.1.Final")
+	kaptTest("org.mapstruct:mapstruct-processor:1.3.1.Final")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
