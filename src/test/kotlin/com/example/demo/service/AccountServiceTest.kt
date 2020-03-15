@@ -1,5 +1,6 @@
 package com.example.demo.service
 
+import com.example.demo.dto.RegistrableAccountDto
 import com.example.demo.entity.Account
 import com.example.demo.entity.AccountRole
 import org.assertj.core.api.Assertions.assertThat
@@ -15,11 +16,9 @@ import org.springframework.test.context.TestConstructor
 internal class AccountServiceTest(val accountService: AccountService) {
 
     @Test
-    fun loadUserByUsername() {
-        val email = "adsfasdf"
-        val account = Account(0, email, "asfd", mutableSetOf(AccountRole.USER))
-        val saveAccount = accountService.saveAccount(account)
+    fun saveAccount() {
+        val accountDto = RegistrableAccountDto(email = "asb@gmail.com", password = "asdf")
 
-        Assertions.assertEquals(email, saveAccount.email)
+        val saveAccount = accountService.saveAccount(accountDto)
     }
 }

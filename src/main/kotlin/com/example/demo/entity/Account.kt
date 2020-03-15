@@ -9,6 +9,7 @@ class Account(
         @Id @GeneratedValue
         @Column(updatable = false, insertable = false)
         val id: Long? = null,
+        @Column(unique = true)
         var email: String,
         var password: String,
 
