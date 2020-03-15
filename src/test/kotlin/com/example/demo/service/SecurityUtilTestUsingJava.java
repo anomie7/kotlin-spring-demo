@@ -6,12 +6,8 @@ import com.example.demo.utill.SecurityUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithUserDetails;
-
-import java.time.LocalDateTime;
 
 @SpringBootTest
 public class SecurityUtilTestUsingJava {
