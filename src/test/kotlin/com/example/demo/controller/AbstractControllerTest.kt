@@ -26,10 +26,9 @@ class AbstractControllerTest {
 class sampleControllerTest : AbstractControllerTest(){
     @Test
     fun sampleNormal() {
-        mockMvc?.perform(get("/"))
-                ?.andDo { println(it) }
-                ?.andExpect(MockMvcResultMatchers.status().isOk)
-                ?.andReturn()
+        mockMvc.perform(get("/"))
+                .andDo { println(it) }
+                .andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
@@ -37,11 +36,11 @@ class sampleControllerTest : AbstractControllerTest(){
         mockMvc?.get("/") {
             contentType = MediaType.TEXT_HTML
             accept = MediaType.TEXT_HTML
-        }?.andExpect {
+        }.andExpect {
             status { isOk }
             content { contentType("text/html;charset=UTF-8") }
             content { encoding("UTF-8")}
             content { string(containsString(LocalDate.now().toString())) }
-        }?.andReturn()
+        }
     }
 }
